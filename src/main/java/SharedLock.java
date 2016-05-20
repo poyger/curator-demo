@@ -32,14 +32,15 @@ public class SharedLock {
         try {
             if (lock.acquire(1000, TimeUnit.MILLISECONDS)) {
                 sharedResource.access();
-                processWithLocking1();
+                reentrant();
+                Thread.sleep(1000);
             }
         } finally {
             lock.release();
         }
     }
 
-    private void processWithLocking1() throws Exception {
+    private void reentrant() throws Exception {
         try {
             if (lock.acquire(1000, TimeUnit.MILLISECONDS)) {
                 sharedResource.access();
